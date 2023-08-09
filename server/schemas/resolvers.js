@@ -49,7 +49,7 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         //this mutation adds a book to a users saved books array
-        savedBook: async (parent, { input }, context) => {
+        saveBook: async (parent, { input }, context) => {
             if (context.user) {
                 const newBook = await User.findOneAndUpdate(
                     { _id: context.user.id },
