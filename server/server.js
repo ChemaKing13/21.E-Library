@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const { ApolloServer } = require('apollo-server-express'); 
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
@@ -12,9 +13,11 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3004;
 const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
   context: authMiddleware,
 }); 
 
@@ -33,9 +36,6 @@ app.get('/', (req, res) => {
 
 
 app.use(routes);
-
-
-
 
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
